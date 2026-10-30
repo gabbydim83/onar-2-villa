@@ -139,13 +139,13 @@
    Hero copy is deliberately below the photograph rather than across the hammock. */
 @media (max-width:700px){
   .hero{
-    display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
-    height:auto;min-height:0;max-height:none;overflow:hidden;
-    background:#153531;color:#fff;
+    position:relative;display:block;
+    min-height:calc(100svh - 76px);height:auto;max-height:none;overflow:hidden;
+    background:#0f2726;color:#fff;
   }
   .hero-picture{
-    position:relative;inset:auto;z-index:0;flex:none;
-    width:100%;height:auto;aspect-ratio:9 / 16;
+    position:absolute;inset:0;z-index:0;
+    width:100%;height:100%;aspect-ratio:auto;
     background:#1f4b46;
   }
   .hero-picture .hero-photo{
@@ -154,25 +154,30 @@
     animation:none;transform:none;
   }
   .hero-tint{
-    z-index:1;inset:0 0 auto 0;height:165px;
-    background:linear-gradient(180deg,rgba(6,25,24,.63),rgba(6,25,24,.10) 77%,transparent);
+    z-index:1;inset:0;
+    background:linear-gradient(180deg,rgba(7,25,24,.24) 0%,rgba(7,25,24,.18) 28%,rgba(7,25,24,.14) 48%,rgba(7,25,24,.56) 78%,rgba(7,25,24,.84) 100%);
     pointer-events:none;
   }
   .hero .hero-content{
-    position:relative;flex:none;width:100%;max-width:none;
-    padding:30px 23px 38px;margin:0;
-    background:linear-gradient(135deg,#173b37 0%,#112c2a 100%);
+    position:absolute;left:0;right:0;bottom:84px;z-index:2;
+    width:100%;max-width:none;padding:0 22px;margin:0;background:none;
   }
   .hero .hero-content::before{
-    content:'';position:absolute;top:0;left:23px;width:50px;height:2px;
+    content:'';display:block;width:50px;height:2px;margin:0 0 14px;
     background:#d7b987;
   }
-  .hero h1{font-size:clamp(32px,8.3vw,44px);line-height:1.13;margin:12px 0 12px;max-width:525px}
-  .hero .eyebrow{font-size:9px;letter-spacing:.17em;color:#e1c9a5}
-  .hero-desc{font-size:13px;line-height:1.68;max-width:520px;margin-bottom:20px;color:#e2ece6}
-  .hero-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-  .hero-buttons .button{min-width:0;min-height:47px;padding:8px 10px;gap:7px;font-size:10px;letter-spacing:.01em}
+  .hero h1{font-size:clamp(31px,8.1vw,43px);line-height:1.1;margin:10px 0 12px;max-width:340px;text-shadow:0 10px 28px rgba(0,0,0,.3)}
+  .hero .eyebrow{font-size:9px;letter-spacing:.17em;color:#e7cfab;text-shadow:0 8px 24px rgba(0,0,0,.28)}
+  .hero-desc{font-size:13px;line-height:1.62;max-width:310px;margin-bottom:18px;color:#edf5ef;text-shadow:0 10px 24px rgba(0,0,0,.34)}
+  .hero-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-width:340px}
+  .hero-buttons .button{min-width:0;min-height:46px;padding:8px 10px;gap:7px;font-size:10px;letter-spacing:.01em;backdrop-filter:blur(3px)}
   .hero-buttons .button svg{width:15px;height:15px;flex:none}
+  .hero-footer{position:absolute;left:22px;right:22px;bottom:18px;z-index:2;padding:0;border:0;background:none;display:flex;justify-content:space-between;gap:12px;align-items:end}
+  .hero-foot-text,.scroll-prompt{background:rgba(9,32,29,.34);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.12)}
+  .hero-foot-text{padding:10px 12px;border-radius:999px;max-width:70%}
+  .hero-foot-text span:last-child{font-size:10px;line-height:1.2}
+  .scroll-prompt{padding:8px 10px;border-radius:999px}
+  .scroll-prompt span:first-child{font-size:8px}
   .booking{padding:76px 0 82px}
   .booking .booking-layout.container{width:calc(100% - 24px);max-width:620px}
   .booking-layout{gap:23px}
@@ -271,7 +276,15 @@
   .calendar-clear{margin-bottom:14px}
 }
 @media (max-width:420px){
-  .hero-picture{height:min(74svh,680px);min-height:460px}
+  .hero{min-height:calc(100svh - 72px)}
+  .hero .hero-content{bottom:78px;padding:0 18px}
+  .hero h1{max-width:295px;font-size:clamp(29px,8.4vw,38px)}
+  .hero-desc{max-width:280px;font-size:12px;margin-bottom:16px}
+  .hero-buttons{max-width:295px;gap:8px}
+  .hero-buttons .button{min-height:44px;font-size:9px;padding:7px 8px}
+  .hero-footer{left:18px;right:18px;bottom:14px}
+  .hero-foot-text{max-width:68%;padding:9px 10px}
+  .scroll-prompt{display:none}
   .booking-form{padding:20px 10px}
   .calendar-pair{gap:4px !important}
   .calendar-month{padding:8px 3px 11px !important}
@@ -310,7 +323,7 @@
   <nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation"><a href="#villa" data-i18n="navVilla">The villa</a><a href="#inside" data-i18n="navInside">Inside</a><a href="#sea" data-i18n="navSea">By the sea</a><a href="#gallery" data-i18n="navGallery">Gallery</a><a href="#booking" data-i18n="navStay">Plan your stay</a></nav>
 </header>
 <main id="main">
-  <section class="hero" id="top" aria-label="Onar 2 Villa on the sea"><picture class="hero-picture"><source media="(max-width: 700px)" srcset="assets/images/Terasa de piatră cu vedere la mare-1.webp"><img class="hero-photo" src="assets/images/Terasă rustică la malul mării.webp" data-desktop-src="assets/images/Terasă rustică la malul mării.webp" data-mobile-src="assets/images/Terasa de piatră cu vedere la mare-1.webp" alt="Onar 2 Villa – private seaside stone villa with hammock on its terrace" fetchpriority="high"></picture><div class="hero-tint"></div><div class="container hero-content"><span class="eyebrow" data-i18n="heroKicker">AN INTIMATE SEASIDE RETREAT · THASSOS</span><h1 data-i18n-html="heroTitle">A private home.<br><em>The sea at your doorstep.</em></h1><p class="hero-desc" data-i18n="heroBody">A peaceful stone villa in Skala Prinos...</p><div class="hero-buttons"><a class="button button--light" href="#villa"><span data-i18n="heroPrimary">Discover the villa</span><svg><use href="#i-arrow"/></svg></a><a class="button button--ghost" href="#booking"><span data-i18n="heroSecondary">Plan your stay</span><svg><use href="#i-arrow"/></svg></a></div></div><div class="hero-footer"><span class="hero-foot-text"><svg><use href="#i-wave"/></svg><span data-i18n="heroChip">ONE HOME · YOUR OWN SPACE</span></span><span class="scroll-prompt"><span data-i18n="scroll">SCROLL TO EXPLORE</span><span class="scroll-line"></span></span></div></section>
+  <section class="hero" id="top" aria-label="Onar 2 Villa on the sea"><picture class="hero-picture"><source media="(max-width: 700px)" srcset="assets/images/mobil.webp"><img class="hero-photo" src="assets/images/Terasă rustică la malul mării.webp" data-desktop-src="assets/images/Terasă rustică la malul mării.webp" data-mobile-src="assets/images/mobil.webp" alt="Onar 2 Villa – private seaside stone villa with hammock on its terrace" fetchpriority="high"></picture><div class="hero-tint"></div><div class="container hero-content"><span class="eyebrow" data-i18n="heroKicker">AN INTIMATE SEASIDE RETREAT · THASSOS</span><h1 data-i18n-html="heroTitle">A private home.<br><em>The sea at your doorstep.</em></h1><p class="hero-desc" data-i18n="heroBody">A peaceful stone villa in Skala Prinos...</p><div class="hero-buttons"><a class="button button--light" href="#villa"><span data-i18n="heroPrimary">Discover the villa</span><svg><use href="#i-arrow"/></svg></a><a class="button button--ghost" href="#booking"><span data-i18n="heroSecondary">Plan your stay</span><svg><use href="#i-arrow"/></svg></a></div></div><div class="hero-footer"><span class="hero-foot-text"><svg><use href="#i-wave"/></svg><span data-i18n="heroChip">ONE HOME · YOUR OWN SPACE</span></span><span class="scroll-prompt"><span data-i18n="scroll">SCROLL TO EXPLORE</span><span class="scroll-line"></span></span></div></section>
   <section class="intro" id="villa"><div class="container intro-layout"><div class="intro-text"><span class="eyebrow" data-i18n="introEye">A DIFFERENT KIND OF ESCAPE</span><h2 class="section-title" data-i18n-html="introTitle">Just you, the sea,<br><em>and time to unwind.</em></h2><div class="body-copy"><p data-i18n="introP1"></p><p data-i18n="introP2"></p></div><div class="facts"><div class="fact"><svg><use href="#i-house"/></svg><span data-i18n="fact1">Entire private house</span></div><div class="fact"><svg><use href="#i-bed"/></svg><span data-i18n="fact2">Two bedrooms</span></div><div class="fact"><svg><use href="#i-wave"/></svg><span data-i18n="fact3">Direct seaside setting</span></div></div></div><div class="intro-media"><img src="assets/images/Terasă mediteraneană cu vedere la mare.webp" alt="Covered seaside terrace at Onar 2 Villa" loading="lazy"><div class="intro-mini"><svg><use href="#i-wave"/></svg><span data-i18n="introBadge">Your little place by the sea</span></div></div></div></section>
   <section class="inside" id="inside"><div class="container"><div class="section-head"><div><span class="eyebrow" data-i18n="insideEye">FEEL AT HOME</span><h2 class="section-title" data-i18n-html="insideTitle">Thoughtfully simple.<br><em>Easy to love.</em></h2></div><p class="body-copy" data-i18n="insideDesc"></p></div><div class="inside-grid"><article class="space-card space-card--large"><img src="assets/images/Living modern cu vedere la mare.webp" alt="Living room with sofa and sea view" loading="lazy"><div class="space-card-info"><h3 data-i18n="livingTitle">Living room</h3><p data-i18n="livingDesc"></p></div></article><article class="space-card space-card--small"><img src="assets/images/Dormitor modern cu lumină naturală.webp" alt="Double bedroom" loading="lazy"><div class="space-card-info"><h3 data-i18n="bedTitle">Two bedrooms</h3><p data-i18n="bedDesc"></p></div></article><article class="space-card space-card--small"><img src="assets/images/Bucătărie albastră cu vedere la mare.webp" alt="Fully equipped kitchen" loading="lazy"><div class="space-card-info"><h3 data-i18n="kitchenTitle">Equipped kitchen</h3><p data-i18n="kitchenDesc"></p></div></article></div><div class="inside-lower"><article class="space-card"><img src="assets/images/Dormitor luminos cu prosoape albe și fereastră spre măslini.webp" alt="Double bed with fresh linen" loading="lazy"><div class="space-card-info"><h3 data-i18n="bedTitle">Two bedrooms</h3></div></article><article class="space-card"><img src="assets/images/Baie modernă cu marmură și duș walk-in.webp" alt="Bathroom with walk-in shower" loading="lazy"><div class="space-card-info"><h3 data-i18n="bathTitle">Bathroom</h3><p data-i18n="bathDesc"></p></div></article></div></div></section>
   <section class="container amenities" aria-label="Villa amenities"><div><span class="eyebrow" data-i18n="featuresEye">THE ESSENTIALS</span><h2 class="section-title" data-i18n="featuresTitle">Everything for an easy stay</h2><p class="body-copy" data-i18n="featureSmall"></p></div><div><div class="amenity-grid"><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureHome"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureBed"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureSofa"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureKitchen"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureWifi"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureParking"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureBaby"></span></div><div class="amenity"><svg><use href="#i-check"/></svg><span data-i18n="featureNets"></span></div></div><div class="comfort-feature"><span class="comfort-symbol"><svg aria-hidden="true"><use href="#i-snowflake"/></svg></span><div><strong data-i18n="featureAC">Air conditioning</strong><span data-i18n="featureACNote">Included for your comfort</span></div><svg class="comfort-tick" aria-hidden="true"><use href="#i-check"/></svg></div></div></section>
